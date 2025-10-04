@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KayyCr8tions | Registration</title>
+
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f5f0f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  form {
+    background-color: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 350px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #7b2cbf;
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #4a148c;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border: 2px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #a663cc;
+  }
+
+  .error {
+    color: #d62828;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    min-height: 1em;
+  }
+
+  input.invalid {
+    border-color: #d62828;
+  }
+
+  input.valid {
+    border-color: #38b000;
+  }
+
+  button {
+    width: 100%;
+    background-color: #7b2cbf;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #5a189a;
+  }
+
+  .footer-note {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #6a4c93;
+  }
+</style>
+</head>
+
+<body>
+  <form id="registrationForm" novalidate>
+    <h2>Join KayyCr8tions </h2>
+
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required minlength="3" maxlength="16">
+    <span id="usernameError" class="error"></span>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+    <span id="emailError" class="error"></span>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required minlength="8">
+    <span id="passwordError" class="error"></span>
+
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <span id="confirmError" class="error"></span>
+
+    <button type="submit">Register</button>
+
+    <div class="footer-note">
+      Creating your light. ✨
+    </div>
+  </form>
+
+  <script>
+    const form = document.getElementById("registrationForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+      const confirmPassword = document.getElementById("confirmPassword");
+
+      const usernameError = document.getElementById("usernameError");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+      const confirmError = document.getElementById("confirmError");
+
+      // Reset errors
+      [usernameError, emailError, passwordError, confirmError].forEach(e => e.textContent = "");
+      [username, email, password, confirmPassword].forEach(el => el.classList.remove("invalid", "valid"));
+
+      let valid = true;
+
+      // Username validation
+      if (username.value.length < 3 || username.value.length > 16) {
+        usernameError.textContent = "Username must be 3–16 characters.";
+        username.classList.add("invalid");
+        valid = false;
+      } else {
+        username.classList.add("valid");
+      }
+
+      // Email validation
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.value.match(emailPattern)) {
+        emailError.textContent = "Enter a valid email address.";
+        email.classList.add("invalid");
+        valid = false;
+      } else {
+        email.classList.add("valid");
+      }
+
+      // Password validation
+      if (password.value.length < 8) {
+        passwordError.textContent = "Password must be at least 8 characters.";
+        password.classList.add("invalid");
+        valid = false;
+      } else {
+        password.classList.add("valid");
+      }
+
+      // Confirm password validation
+      if (password.value !== confirmPassword.value) {
+        confirmError.textContent = "Passwords do not match.";
+        confirmPassword.classList.add("invalid");
+        valid = false;
+      } else {
+        confirmPassword.classList.add("valid");
+      }
+
+      // Success
+      if (valid) {
+        alert("Registration successful! ");
+        form.reset();
+        [username, email, password, confirmPassword].forEach(el => el.classList.remove("valid"));
+      }
+    });
+  </script>
+</body>
+</html>
